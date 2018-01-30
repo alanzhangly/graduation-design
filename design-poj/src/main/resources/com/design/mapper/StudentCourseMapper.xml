@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.design.dao.StudentCourseMapper">
+  <resultMap id="BaseResultMap" type="com.design.pojo.StudentCourse">
+    <id column="student_course_id" jdbcType="VARCHAR" property="studentCourseId" />
+    <result column="sc_sudent_id" jdbcType="VARCHAR" property="scSudentId" />
+    <result column="sc_course_id" jdbcType="VARCHAR" property="scCourseId" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    student_course_id, sc_sudent_id, sc_course_id, modify_time, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student_course
+    where student_course_id = #{studentCourseId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from student_course
+    where student_course_id = #{studentCourseId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.design.pojo.StudentCourse">
+    <selectKey keyProperty="studentCourseId" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into student_course (sc_sudent_id, sc_course_id, modify_time, 
+      create_time)
+    values (#{scSudentId,jdbcType=VARCHAR}, #{scCourseId,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.design.pojo.StudentCourse">
+    <selectKey keyProperty="studentCourseId" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into student_course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="scSudentId != null">
+        sc_sudent_id,
+      </if>
+      <if test="scCourseId != null">
+        sc_course_id,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="scSudentId != null">
+        #{scSudentId,jdbcType=VARCHAR},
+      </if>
+      <if test="scCourseId != null">
+        #{scCourseId,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.pojo.StudentCourse">
+    update student_course
+    <set>
+      <if test="scSudentId != null">
+        sc_sudent_id = #{scSudentId,jdbcType=VARCHAR},
+      </if>
+      <if test="scCourseId != null">
+        sc_course_id = #{scCourseId,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where student_course_id = #{studentCourseId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.pojo.StudentCourse">
+    update student_course
+    set sc_sudent_id = #{scSudentId,jdbcType=VARCHAR},
+      sc_course_id = #{scCourseId,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where student_course_id = #{studentCourseId,jdbcType=VARCHAR}
+  </update>
+</mapper>

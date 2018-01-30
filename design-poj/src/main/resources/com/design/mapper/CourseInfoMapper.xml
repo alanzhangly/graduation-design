@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.design.dao.CourseInfoMapper">
+  <resultMap id="BaseResultMap" type="com.design.pojo.CourseInfo">
+    <id column="course_id" jdbcType="VARCHAR" property="courseId" />
+    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+    <result column="teacher_name" jdbcType="VARCHAR" property="teacherName" />
+    <result column="weekly_study_time" jdbcType="VARCHAR" property="weeklyStudyTime" />
+    <result column="weekly_start_end" jdbcType="VARCHAR" property="weeklyStartEnd" />
+    <result column="credits" jdbcType="REAL" property="credits" />
+    <result column="class_time" jdbcType="VARCHAR" property="classTime" />
+    <result column="class_place" jdbcType="VARCHAR" property="classPlace" />
+    <result column="total_study_time" jdbcType="INTEGER" property="totalStudyTime" />
+    <result column="classroom_study_time" jdbcType="INTEGER" property="classroomStudyTime" />
+    <result column="experiment_study_time" jdbcType="INTEGER" property="experimentStudyTime" />
+    <result column="computer_study_time" jdbcType="INTEGER" property="computerStudyTime" />
+    <result column="student_count" jdbcType="INTEGER" property="studentCount" />
+    <result column="class_nature" jdbcType="VARCHAR" property="classNature" />
+    <result column="inspection_way" jdbcType="VARCHAR" property="inspectionWay" />
+    <result column="study_year" jdbcType="VARCHAR" property="studyYear" />
+    <result column="semester" jdbcType="INTEGER" property="semester" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    course_id, course_name, teacher_name, weekly_study_time, weekly_start_end, credits, 
+    class_time, class_place, total_study_time, classroom_study_time, experiment_study_time, 
+    computer_study_time, student_count, class_nature, inspection_way, study_year, semester, 
+    modify_time, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from course_info
+    where course_id = #{courseId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from course_info
+    where course_id = #{courseId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.design.pojo.CourseInfo">
+    <selectKey keyProperty="courseId" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into course_info (course_name, teacher_name, weekly_study_time, 
+      weekly_start_end, credits, class_time, 
+      class_place, total_study_time, classroom_study_time, 
+      experiment_study_time, computer_study_time, 
+      student_count, class_nature, inspection_way, 
+      study_year, semester, modify_time, 
+      create_time)
+    values (#{courseName,jdbcType=VARCHAR}, #{teacherName,jdbcType=VARCHAR}, #{weeklyStudyTime,jdbcType=VARCHAR}, 
+      #{weeklyStartEnd,jdbcType=VARCHAR}, #{credits,jdbcType=REAL}, #{classTime,jdbcType=VARCHAR}, 
+      #{classPlace,jdbcType=VARCHAR}, #{totalStudyTime,jdbcType=INTEGER}, #{classroomStudyTime,jdbcType=INTEGER}, 
+      #{experimentStudyTime,jdbcType=INTEGER}, #{computerStudyTime,jdbcType=INTEGER}, 
+      #{studentCount,jdbcType=INTEGER}, #{classNature,jdbcType=VARCHAR}, #{inspectionWay,jdbcType=VARCHAR}, 
+      #{studyYear,jdbcType=VARCHAR}, #{semester,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.design.pojo.CourseInfo">
+    <selectKey keyProperty="courseId" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into course_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="courseName != null">
+        course_name,
+      </if>
+      <if test="teacherName != null">
+        teacher_name,
+      </if>
+      <if test="weeklyStudyTime != null">
+        weekly_study_time,
+      </if>
+      <if test="weeklyStartEnd != null">
+        weekly_start_end,
+      </if>
+      <if test="credits != null">
+        credits,
+      </if>
+      <if test="classTime != null">
+        class_time,
+      </if>
+      <if test="classPlace != null">
+        class_place,
+      </if>
+      <if test="totalStudyTime != null">
+        total_study_time,
+      </if>
+      <if test="classroomStudyTime != null">
+        classroom_study_time,
+      </if>
+      <if test="experimentStudyTime != null">
+        experiment_study_time,
+      </if>
+      <if test="computerStudyTime != null">
+        computer_study_time,
+      </if>
+      <if test="studentCount != null">
+        student_count,
+      </if>
+      <if test="classNature != null">
+        class_nature,
+      </if>
+      <if test="inspectionWay != null">
+        inspection_way,
+      </if>
+      <if test="studyYear != null">
+        study_year,
+      </if>
+      <if test="semester != null">
+        semester,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="courseName != null">
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherName != null">
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="weeklyStudyTime != null">
+        #{weeklyStudyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="weeklyStartEnd != null">
+        #{weeklyStartEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="credits != null">
+        #{credits,jdbcType=REAL},
+      </if>
+      <if test="classTime != null">
+        #{classTime,jdbcType=VARCHAR},
+      </if>
+      <if test="classPlace != null">
+        #{classPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="totalStudyTime != null">
+        #{totalStudyTime,jdbcType=INTEGER},
+      </if>
+      <if test="classroomStudyTime != null">
+        #{classroomStudyTime,jdbcType=INTEGER},
+      </if>
+      <if test="experimentStudyTime != null">
+        #{experimentStudyTime,jdbcType=INTEGER},
+      </if>
+      <if test="computerStudyTime != null">
+        #{computerStudyTime,jdbcType=INTEGER},
+      </if>
+      <if test="studentCount != null">
+        #{studentCount,jdbcType=INTEGER},
+      </if>
+      <if test="classNature != null">
+        #{classNature,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionWay != null">
+        #{inspectionWay,jdbcType=VARCHAR},
+      </if>
+      <if test="studyYear != null">
+        #{studyYear,jdbcType=VARCHAR},
+      </if>
+      <if test="semester != null">
+        #{semester,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.pojo.CourseInfo">
+    update course_info
+    <set>
+      <if test="courseName != null">
+        course_name = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherName != null">
+        teacher_name = #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="weeklyStudyTime != null">
+        weekly_study_time = #{weeklyStudyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="weeklyStartEnd != null">
+        weekly_start_end = #{weeklyStartEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="credits != null">
+        credits = #{credits,jdbcType=REAL},
+      </if>
+      <if test="classTime != null">
+        class_time = #{classTime,jdbcType=VARCHAR},
+      </if>
+      <if test="classPlace != null">
+        class_place = #{classPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="totalStudyTime != null">
+        total_study_time = #{totalStudyTime,jdbcType=INTEGER},
+      </if>
+      <if test="classroomStudyTime != null">
+        classroom_study_time = #{classroomStudyTime,jdbcType=INTEGER},
+      </if>
+      <if test="experimentStudyTime != null">
+        experiment_study_time = #{experimentStudyTime,jdbcType=INTEGER},
+      </if>
+      <if test="computerStudyTime != null">
+        computer_study_time = #{computerStudyTime,jdbcType=INTEGER},
+      </if>
+      <if test="studentCount != null">
+        student_count = #{studentCount,jdbcType=INTEGER},
+      </if>
+      <if test="classNature != null">
+        class_nature = #{classNature,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionWay != null">
+        inspection_way = #{inspectionWay,jdbcType=VARCHAR},
+      </if>
+      <if test="studyYear != null">
+        study_year = #{studyYear,jdbcType=VARCHAR},
+      </if>
+      <if test="semester != null">
+        semester = #{semester,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where course_id = #{courseId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.pojo.CourseInfo">
+    update course_info
+    set course_name = #{courseName,jdbcType=VARCHAR},
+      teacher_name = #{teacherName,jdbcType=VARCHAR},
+      weekly_study_time = #{weeklyStudyTime,jdbcType=VARCHAR},
+      weekly_start_end = #{weeklyStartEnd,jdbcType=VARCHAR},
+      credits = #{credits,jdbcType=REAL},
+      class_time = #{classTime,jdbcType=VARCHAR},
+      class_place = #{classPlace,jdbcType=VARCHAR},
+      total_study_time = #{totalStudyTime,jdbcType=INTEGER},
+      classroom_study_time = #{classroomStudyTime,jdbcType=INTEGER},
+      experiment_study_time = #{experimentStudyTime,jdbcType=INTEGER},
+      computer_study_time = #{computerStudyTime,jdbcType=INTEGER},
+      student_count = #{studentCount,jdbcType=INTEGER},
+      class_nature = #{classNature,jdbcType=VARCHAR},
+      inspection_way = #{inspectionWay,jdbcType=VARCHAR},
+      study_year = #{studyYear,jdbcType=VARCHAR},
+      semester = #{semester,jdbcType=INTEGER},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where course_id = #{courseId,jdbcType=VARCHAR}
+  </update>
+</mapper>
