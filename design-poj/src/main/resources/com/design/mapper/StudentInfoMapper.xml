@@ -9,8 +9,9 @@
     <result column="birthday" jdbcType="DATE" property="birthday" />
     <result column="signature" jdbcType="VARCHAR" property="signature" />
     <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait" />
-    <result column="college" jdbcType="VARCHAR" property="college" />
-    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="college_id" jdbcType="VARCHAR" property="collegeId" />
+    <result column="major_id" jdbcType="VARCHAR" property="majorId" />
+    <result column="stu_class" jdbcType="VARCHAR" property="stuClass" />
     <result column="entrance_year" jdbcType="VARCHAR" property="entranceYear" />
     <result column="student_number" jdbcType="VARCHAR" property="studentNumber" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -21,14 +22,30 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    user_id, realname, nickname, sex, birthday, signature, head_portrait, college, major, 
-    entrance_year, student_number, password, enable, phone, email, modify_time, create_time
+    user_id, realname, nickname, sex, birthday, signature, head_portrait, college_id, 
+    major_id, stu_class, entrance_year, student_number, password, enable, phone, email, modify_time,
+    create_time
+  </sql>
+  <sql id="Ad_Batch_Column_List">
+    user_id, realname, college_id, major_id, entrance_year, stu_class, student_number, password, enable, modify_time, create_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from student_info
     where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectIdsByModel" parameterType="java.lang.String" resultType="java.lang.String">
+    select user_id
+    from student_info
+    <where>
+    <if test="majorId != null">
+      major_id = #{majorId,jdbcType=VARCHAR}
+    </if>
+    <if test="stuClass != null">
+      AND stu_class = #{stuClass,jdbcType=VARCHAR}
+    </if>
+    </where>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from student_info
@@ -40,16 +57,25 @@
     </selectKey>
     insert into student_info (realname, nickname, sex, 
       birthday, signature, head_portrait, 
-      college, major, entrance_year, 
+      college_id, major_id, entrance_year, 
       student_number, password, enable, 
       phone, email, modify_time, 
       create_time)
     values (#{realname,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
       #{birthday,jdbcType=DATE}, #{signature,jdbcType=VARCHAR}, #{headPortrait,jdbcType=VARCHAR}, 
-      #{college,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{entranceYear,jdbcType=VARCHAR}, 
+      #{collegeId,jdbcType=VARCHAR}, #{majorId,jdbcType=VARCHAR}, #{entranceYear,jdbcType=VARCHAR}, 
       #{studentNumber,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{enable,jdbcType=INTEGER}, 
       #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
       #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="addBatch" parameterType="com.design.pojo.StudentInfo">
+    insert into student_info (<include refid="Ad_Batch_Column_List"/> )
+    VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.userId,jdbcType=VARCHAR}, #{item.realname,jdbcType=VARCHAR}, #{item.collegeId,jdbcType=VARCHAR},
+      #{item.majorId,jdbcType=VARCHAR},#{item.entranceYear,jdbcType=VARCHAR}, #{item.stuClass,jdbcType=VARCHAR},
+      #{item.studentNumber,jdbcType=VARCHAR}, #{item.password,jdbcType=VARCHAR}, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    </foreach>
   </insert>
   <insert id="insertSelective" parameterType="com.design.pojo.StudentInfo">
     <selectKey keyProperty="userId" order="AFTER" resultType="java.lang.String">
@@ -75,11 +101,11 @@
       <if test="headPortrait != null">
         head_portrait,
       </if>
-      <if test="college != null">
-        college,
+      <if test="collegeId != null">
+        college_id,
       </if>
-      <if test="major != null">
-        major,
+      <if test="majorId != null">
+        major_id,
       </if>
       <if test="entranceYear != null">
         entrance_year,
@@ -125,11 +151,11 @@
       <if test="headPortrait != null">
         #{headPortrait,jdbcType=VARCHAR},
       </if>
-      <if test="college != null">
-        #{college,jdbcType=VARCHAR},
+      <if test="collegeId != null">
+        #{collegeId,jdbcType=VARCHAR},
       </if>
-      <if test="major != null">
-        #{major,jdbcType=VARCHAR},
+      <if test="majorId != null">
+        #{majorId,jdbcType=VARCHAR},
       </if>
       <if test="entranceYear != null">
         #{entranceYear,jdbcType=VARCHAR},
@@ -178,11 +204,11 @@
       <if test="headPortrait != null">
         head_portrait = #{headPortrait,jdbcType=VARCHAR},
       </if>
-      <if test="college != null">
-        college = #{college,jdbcType=VARCHAR},
+      <if test="collegeId != null">
+        college_id = #{collegeId,jdbcType=VARCHAR},
       </if>
-      <if test="major != null">
-        major = #{major,jdbcType=VARCHAR},
+      <if test="majorId != null">
+        major_id = #{majorId,jdbcType=VARCHAR},
       </if>
       <if test="entranceYear != null">
         entrance_year = #{entranceYear,jdbcType=VARCHAR},
@@ -219,8 +245,8 @@
       birthday = #{birthday,jdbcType=DATE},
       signature = #{signature,jdbcType=VARCHAR},
       head_portrait = #{headPortrait,jdbcType=VARCHAR},
-      college = #{college,jdbcType=VARCHAR},
-      major = #{major,jdbcType=VARCHAR},
+      college_id = #{collegeId,jdbcType=VARCHAR},
+      major_id = #{majorId,jdbcType=VARCHAR},
       entrance_year = #{entranceYear,jdbcType=VARCHAR},
       student_number = #{studentNumber,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},

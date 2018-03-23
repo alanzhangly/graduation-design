@@ -64,6 +64,14 @@
       </if>
     </trim>
   </insert>
+  <insert id="addBatch" parameterType="com.design.model.StudentCourseModel">
+    insert into student_course (<include refid="Base_Column_List"/> )
+    VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=VARCHAR},#{item.studentId,jdbcType=VARCHAR},#{item.courseId,jdbcType=VARCHAR},
+      CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    </foreach>
+  </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.design.pojo.StudentCourse">
     update student_course
     <set>

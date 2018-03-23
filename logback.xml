@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="10 seconds">
 
-    <property name="LOG_HOME" value="/home/admin/tinyplat/logs" />
-    <!--<property name="LOG_HOME" value="F:\log" />-->
+    <!--<property name="LOG_HOME" value="/home/admin/tinyplat/logs" />-->
+    <property name="LOG_HOME" value="E:\log\design" />
     <!-- Simple file output -->
     <appender name="INFO-OUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_HOME}/tiny.log</file>
-        <!--<file>${LOG_HOME}\tiny.log</file>-->
+        <!--<file>${LOG_HOME}/tiny.log</file>-->
+        <file>${LOG_HOME}\tiny.log</file>
         <encoder>
             <pattern>%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>

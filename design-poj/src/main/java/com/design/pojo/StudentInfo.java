@@ -17,28 +17,69 @@ public class StudentInfo implements Serializable {
 
     private Date birthday;
 
+    /**
+     * 个性签名
+     */
     private String signature;
 
+    /**
+     * 头像
+     */
     private String headPortrait;
 
-    private String college;
+    /**
+     * 学院
+     */
+    private String collegeId;
 
-    private String major;
+    /**
+     * 专业
+     */
+    private String majorId;
 
+    /**
+     *  班级
+     */
+    private String stuClass;
+
+    /**
+     * 入学年份
+     */
     private String entranceYear;
 
+    /**
+     * 学号:作业登录帐号
+     */
     private String studentNumber;
 
+    /**
+     * 密码
+     */
     private String password;
 
+    /**
+     * 是否可用，0：不可用 1：可用
+     */
     private Integer enable;
 
+    /**
+     * 绑定手机号
+     */
     private String phone;
 
+    /**
+     * 绑定电子邮箱
+     */
     private String email;
 
+    /**
+     * 修改时间
+     */
     private Date modifyTime;
 
+    /**
+     * 创建时间
+     */
     private Date createTime;
 
     private static final long serialVersionUID = 1L;
@@ -99,20 +140,20 @@ public class StudentInfo implements Serializable {
         this.headPortrait = headPortrait;
     }
 
-    public String getCollege() {
-        return college;
+    public String getCollegeId() {
+        return collegeId;
     }
 
-    public void setCollege(String college) {
-        this.college = college;
+    public void setCollegeId(String collegeId) {
+        this.collegeId = collegeId;
     }
 
-    public String getMajor() {
-        return major;
+    public String getMajorId() {
+        return majorId;
     }
 
-    public void setMajor(String major) {
-        this.major = major;
+    public void setMajorId(String majorId) {
+        this.majorId = majorId;
     }
 
     public String getEntranceYear() {
@@ -177,5 +218,13 @@ public class StudentInfo implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getStuClass() {
+        return stuClass;
+    }
+
+    public void setStuClass(String stuClass) {
+        this.stuClass = stuClass;
     }
 }

@@ -9,36 +9,84 @@ import java.util.Date;
 public class CourseInfo implements Serializable {
     private String courseId;
 
+    /**
+     * 课程名字
+     */
     private String courseName;
 
+    /**
+     * 教师姓名
+     */
     private String teacherName;
 
+    /**
+     * 周学时
+     */
     private String weeklyStudyTime;
 
+    /**
+     * 起止周
+     */
     private String weeklyStartEnd;
 
+    /**
+     * 学分
+     */
     private Float credits;
 
+    /**
+     * 上课时间
+     */
     private String classTime;
 
+    /**
+     * 上课地点
+     */
     private String classPlace;
 
+    /**
+     * 总学时
+     */
     private Integer totalStudyTime;
 
+    /**
+     * 讲课学时
+     */
     private Integer classroomStudyTime;
 
+    /**
+     * 实验学时
+     */
     private Integer experimentStudyTime;
 
+    /**
+     * 上机学时
+     */
     private Integer computerStudyTime;
 
+    /**
+     * 已选人数
+     */
     private Integer studentCount;
 
+    /**
+     * 课程性质
+     */
     private String classNature;
 
+    /**
+     * 考核方式
+     */
     private String inspectionWay;
 
+    /**
+     * 学年：2017-2018
+     */
     private String studyYear;
 
+    /**
+     * 学期：1或2
+     */
     private Integer semester;
 
     private Date modifyTime;

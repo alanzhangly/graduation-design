@@ -175,6 +175,18 @@
       </if>
     </trim>
   </insert>
+  <insert id="addBatch" parameterType="com.design.pojo.CourseInfo">
+    insert into course_info (<include refid="Base_Column_List"/> )
+    VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.courseId,jdbcType=VARCHAR}, #{item.courseName,jdbcType=VARCHAR}, #{item.teacherName,jdbcType=VARCHAR},#{item.weeklyStudyTime,jdbcType=VARCHAR},
+      #{item.weeklyStartEnd,jdbcType=VARCHAR}, #{item.credits,jdbcType=REAL}, #{item.classTime,jdbcType=VARCHAR},
+      #{item.classPlace,jdbcType=VARCHAR}, #{item.totalStudyTime,jdbcType=INTEGER}, #{item.classroomStudyTime,jdbcType=INTEGER},
+      #{item.experimentStudyTime,jdbcType=INTEGER}, #{item.computerStudyTime,jdbcType=INTEGER},
+      #{item.studentCount,jdbcType=INTEGER}, #{item.classNature,jdbcType=VARCHAR}, #{item.inspectionWay,jdbcType=VARCHAR},
+      #{item.studyYear,jdbcType=VARCHAR}, #{item.semester,jdbcType=INTEGER}, CURRENT_TIMESTAMP,CURRENT_TIMESTAMP )
+    </foreach>
+  </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.design.pojo.CourseInfo">
     update course_info
     <set>

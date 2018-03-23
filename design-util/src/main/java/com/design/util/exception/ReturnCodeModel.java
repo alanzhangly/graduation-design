@@ -6,11 +6,14 @@ package com.design.util.exception;
 public enum ReturnCodeModel {
 
     SUCCESS("9999","执行成功"),
-    RPC_ERROR("0000","RPC请求失败"),
-    PARAMETER_MISS("0001","参数缺失"),
-    IDCARD_ERROR("0002", "身份证格式错误"),
-    TOKEN_ERROR("0003", "无效token"),
-    TOKEN_MISS("0004", "token缺失"),
+    FAIL("0000", "系统异常"),
+    RPC_ERROR("0002","RPC请求失败"),
+    PARAMETER_MISS("0003","参数缺失"),
+    IDCARD_ERROR("0004", "身份证格式错误"),
+    TOKEN_ERROR("0005", "无效token"),
+    TOKEN_MISS("0006", "token缺失"),
+    EXCEL_READ_ERROR("0007", "excel读取错误"),
+    EXCEL_DATA_ERROR("0008", "excel数据有误"),
     ;
     private String code;
     private String msg;

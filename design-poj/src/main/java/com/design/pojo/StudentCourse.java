@@ -9,8 +9,14 @@ import java.util.Date;
 public class StudentCourse implements Serializable {
     private String studentCourseId;
 
+    /**
+     * Ñ§Éúid
+     */
     private String scSudentId;
 
+    /**
+     * ¿Î³Ìid
+     */
     private String scCourseId;
 
     private Date modifyTime;

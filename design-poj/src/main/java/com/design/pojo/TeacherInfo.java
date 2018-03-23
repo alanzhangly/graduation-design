@@ -9,6 +9,9 @@ import java.util.Date;
 public class TeacherInfo implements Serializable {
     private String teacherId;
 
+    /**
+     * 职工号：用于登录
+     */
     private String teacherNumber;
 
     private String password;
@@ -16,6 +19,8 @@ public class TeacherInfo implements Serializable {
     private String realname;
 
     private String nickname;
+
+    private String collegeId;
 
     private Date birthday;
 
@@ -137,5 +142,13 @@ public class TeacherInfo implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getCollegeId() {
+        return collegeId;
+    }
+
+    public void setCollegeId(String collegeId) {
+        this.collegeId = collegeId;
     }
 }
