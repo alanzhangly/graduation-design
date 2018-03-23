@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.design.dao.CollegeMajorInfoMapper">
+  <resultMap id="BaseResultMap" type="com.design.pojo.CollegeMajorInfo">
+    <id column="cm_id" jdbcType="VARCHAR" property="cmId" />
+    <result column="flag" jdbcType="INTEGER" property="flag" />
+    <result column="cm_name" jdbcType="VARCHAR" property="cmName" />
+    <result column="abb_name" jdbcType="VARCHAR" property="abbName" />
+    <result column="college_en" jdbcType="VARCHAR" property="collegeEn" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cm_id, flag, cm_name, abb_name, college_en, status, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from college_major_info
+    where cm_id = #{cmId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectIdByName" parameterType="java.lang.String" resultType="java.lang.String">
+    select cm_id
+    from college_major_info
+    where cm_name = #{cmName,jdbcType=VARCHAR} OR abb_name = #{abbName,jdbcType=VARCHAR} limit 1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from college_major_info
+    where cm_id = #{cmId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.design.pojo.CollegeMajorInfo">
+    insert into college_major_info (cm_id, flag, cm_name, abb_name,
+      status, create_time)
+    VALUES
+    (#{cmId,jdbcType=VARCHAR}, #{flag,jdbcType=INTEGER}, #{cmName,jdbcType=VARCHAR}, #{abbName,jdbcType=VARCHAR},
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="addBatch" parameterType="com.design.pojo.CollegeMajorInfo">
+    insert into college_major_info (<include refid="Base_Column_List"/> )
+    VALUES
+      <foreach collection="list" item="item" index="index" separator=",">
+          (#{item.cmId,jdbcType=VARCHAR}, #{item.flag,jdbcType=INTEGER}, #{item.cmName,jdbcType=VARCHAR},
+          #{item.abbName,jdbcType=VARCHAR},#{item.collegeEn,jdbcType=VARCHAR},#{item.status,jdbcType=INTEGER}, CURRENT_TIMESTAMP)
+      </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.design.pojo.CollegeMajorInfo">
+    <selectKey keyProperty="cmId" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into college_major_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="cmName != null">
+        cm_name,
+      </if>
+      <if test="abbName != null">
+        abb_name,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="flag != null">
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="cmName != null">
+        #{cmName,jdbcType=VARCHAR},
+      </if>
+      <if test="abbName != null">
+        #{abbName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.design.pojo.CollegeMajorInfo">
+    update college_major_info
+    <set>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="cmName != null">
+        cm_name = #{cmName,jdbcType=VARCHAR},
+      </if>
+      <if test="abbName != null">
+        abb_name = #{abbName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cm_id = #{cmId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.design.pojo.CollegeMajorInfo">
+    update college_major_info
+    set flag = #{flag,jdbcType=INTEGER},
+      cm_name = #{cmName,jdbcType=VARCHAR},
+      abb_name = #{abbName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where cm_id = #{cmId,jdbcType=VARCHAR}
+  </update>
+</mapper>
