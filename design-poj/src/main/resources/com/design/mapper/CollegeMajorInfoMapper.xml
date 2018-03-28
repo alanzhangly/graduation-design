@@ -24,6 +24,16 @@
     from college_major_info
     where cm_name = #{cmName,jdbcType=VARCHAR} OR abb_name = #{abbName,jdbcType=VARCHAR} limit 1
   </select>
+  <select id="selectAllColleges" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    FROM college_major_info
+    WHERE flag = 1
+  </select>
+  <select id="selectMajorsByCollegeEn" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    FROM college_major_info
+    WHERE flag = 2 AND college_en = #{collegeEn, jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from college_major_info
     where cm_id = #{cmId,jdbcType=VARCHAR}

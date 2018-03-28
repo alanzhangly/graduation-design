@@ -15,6 +15,10 @@ public interface CollegeMajorInfoMapper {
 
     CollegeMajorInfo selectByPrimaryKey(String cmId);
 
+    List<CollegeMajorInfo> selectAllColleges();
+
+    List<CollegeMajorInfo> selectMajorsByCollegeEn(String collegeEn);
+
     String selectIdByName(String name);
 
     int updateByPrimaryKeySelective(CollegeMajorInfo record);
